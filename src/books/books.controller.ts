@@ -32,7 +32,7 @@ export class BooksController {
     return this.booksService.findAll();
   }
 
-  @Get('/:id')
+  @Get(':id')
   @ApiParam({ name: 'id', required: true, schema: { type: 'string' } })
   @ApiOkResponse({ type: Book, description: 'A single book' })
   @ApiNotFoundResponse({ description: 'Book not found' })
@@ -46,7 +46,7 @@ export class BooksController {
     return this.booksService.create(dto);
   }
 
-  @Put(':/id')
+  @Put(':id')
   @ApiParam({ name: 'id', required: true, schema: { type: 'string' } })
   @ApiOkResponse({ type: Book, description: 'Book updated successfully' })
   @ApiNotFoundResponse({ description: 'Book not found' })
@@ -54,7 +54,7 @@ export class BooksController {
     return this.booksService.update(id, dto);
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   @ApiParam({ name: 'id', required: true, schema: { type: 'string' } })
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNotFoundResponse({ description: 'Book not found' })
