@@ -28,7 +28,7 @@ export class BooksController {
 
   @Get()
   @ApiOkResponse({ type: [Book], description: 'A list of books' })
-  findAll(): Book[] {
+  findAll(): Promise<Book[]> {
     return this.booksService.findAll();
   }
 
@@ -36,13 +36,13 @@ export class BooksController {
   @ApiParam({ name: 'id', required: true, schema: { type: 'string' } })
   @ApiOkResponse({ type: Book, description: 'A single book' })
   @ApiNotFoundResponse({ description: 'Book not found' })
-  findOne(@Param('id') id: string): Book {
+  findOne(@Param('id') id: string): Promise<Book> {
     return this.booksService.findOne(id);
   }
 
   @Post()
   @ApiCreatedResponse({ type: Book, description: 'Book created successfully' })
-  create(@Body() dto: CreateBookDto): Book {
+  create(@Body() dto: CreateBookDto): Promise<Book> {
     return this.booksService.create(dto);
   }
 
@@ -50,7 +50,7 @@ export class BooksController {
   @ApiParam({ name: 'id', required: true, schema: { type: 'string' } })
   @ApiOkResponse({ type: Book, description: 'Book updated successfully' })
   @ApiNotFoundResponse({ description: 'Book not found' })
-  update(@Param('id') id: string, @Body() dto: UpdateBookDto): Book {
+  update(@Param('id') id: string, @Body() dto: UpdateBookDto): Promise<Book> {
     return this.booksService.update(id, dto);
   }
 
@@ -58,7 +58,7 @@ export class BooksController {
   @ApiParam({ name: 'id', required: true, schema: { type: 'string' } })
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNotFoundResponse({ description: 'Book not found' })
-  delete(@Param('id') id: string): void {
-    this.booksService.remove(id);
+  delete(@Param('id') id: string): Promise<void> {
+    return this.booksService.remove(id);
   }
 }
