@@ -35,7 +35,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{secrets.DOCKER_USERNAME}}book-library-nest-api-second:latest
+          tags: ${{secrets.DOCKER_USERNAME}}adamkuzniarski/book-library-nest-api-second:latest
           platforms: linux/amd64
 
       - name: Trigger Render deploy
