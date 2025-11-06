@@ -21,7 +21,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get('id')
+  @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
@@ -31,7 +31,7 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Put('id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
@@ -39,7 +39,7 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
-  @Delete()
+  @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.delete(id);
   }
