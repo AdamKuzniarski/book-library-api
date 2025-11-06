@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 
 import { Book } from './books/entities/book.entity';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { Book } from './books/entities/book.entity';
       ssl: {
         rejectUnauthorized: false,
       },
-      entities: [Book],
+      entities: [Book, User],
       synchronize: true,
       logging: false,
     }),
