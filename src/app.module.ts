@@ -5,18 +5,20 @@ import { BooksModule } from './books/books.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 
+import { Book } from './books/entities/book.entity';
+
 @Module({
   imports: [
     BooksModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DB_HOST || 'localhost',
-      port: parseInt(process.env.DB_PORT ?? '5432', 10),
-      username: process.env.DB_USER || 'postgres',
-      password: process.env.DB_PASSWORD || 'postgres',
-      database: process.env.DB_NAME || 'book_library',
-      autoLoadEntities: true,
+      url: 'postgresql://book_library_dxsz_user:bTtIR9NtmUIZVZogGlcQe2UtqNRPgfWS@dpg-d468earipnbc73bjf8p0-a.frankfurt-postgres.render.com/book_library_dxsz',
+      ssl: {
+        rejectUnauthorized: false,
+      },
+      entities: [Book],
       synchronize: true,
+      logging: false,
     }),
     UsersModule,
   ],
