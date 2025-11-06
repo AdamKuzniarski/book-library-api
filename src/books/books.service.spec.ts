@@ -15,10 +15,7 @@ describe('BooksService', () => {
     id: '1',
     title: 'Test Book',
     author: 'Test Author',
-    isbn: '1234567890',
-    publishedDate: new Date('2024-01-01'),
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    publishedYear: 1922,
   };
 
   const mockRepository = {
@@ -84,12 +81,10 @@ describe('BooksService', () => {
       const createDto: CreateBookDto = {
         title: 'Test Book',
         author: 'Test Author',
-        isbn: '1234567890',
-        publishedDate: new Date('2024-01-01'),
+        publishedYear: 1922,
       };
       const result = await service.create(createDto);
       expect(result).toEqual(mockBook);
-      // ← GEÄNDERT: Prüfen dass create aufgerufen wurde (mit beliebigen Argumenten)
       expect(repository.create).toHaveBeenCalled();
       expect(repository.save).toHaveBeenCalled();
     });
@@ -99,16 +94,23 @@ describe('BooksService', () => {
     it('should update a book', async () => {
       const updateDto: UpdateBookDto = {
         title: 'Updated Book',
+        author: 'Test Author',
+        publishedYear: 1922,
       };
       const result = await service.update('1', updateDto);
       expect(result).toEqual(mockBook);
-      expect(repository.findOne).toHaveBeenCalledWith({ where: { id: '1' } }); // ← GEÄNDERT
+      expect(repository.findOne).toHaveBeenCalledWith({ where: { id: '1' } });
       expect(repository.save).toHaveBeenCalled();
     });
 
     it('should throw NotFoundException when book not found', async () => {
-      mockRepository.findOne.mockResolvedValueOnce(null); // ← GEÄNDERT
-      await expect(service.update('999', {})).rejects.toThrow(
+      mockRepository.findOne.mockResolvedValueOnce(null);
+      const updateDto: UpdateBookDto = {
+        title: 'Non-existent Book',
+        author: 'Test Author',
+        publishedYear: 1922,
+      };
+      await expect(service.update('999', updateDto)).rejects.toThrow(
         NotFoundException,
       );
     });
@@ -117,8 +119,12 @@ describe('BooksService', () => {
   describe('remove', () => {
     it('should remove a book', async () => {
       await service.remove('1');
-      // ← GEÄNDERT: Dein Service ruft nur delete auf, keine Vorprüfung
       expect(repository.delete).toHaveBeenCalledWith('1');
+    });
+
+    it('should throw NotFoundException when book not found', async () => {
+      mockRepository.delete.mockResolvedValueOnce({ affected: 0 });
+      await expect(service.remove('999')).rejects.toThrow(NotFoundException);
     });
   });
 });
