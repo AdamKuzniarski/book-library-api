@@ -4,13 +4,18 @@ import { AppService } from './app.service';
 import { BooksModule } from './books/books.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
-
+import { join } from 'path';
 import { Book } from './books/entities/book.entity';
 import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+      exclude: ['/api*'], // API Routes werden nicht vom Static Server bedient
+    }),
     BooksModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
