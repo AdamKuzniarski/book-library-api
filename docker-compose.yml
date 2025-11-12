@@ -3,9 +3,9 @@ services:
     container_name: backend
     build: .
     ports:
-      - '3000:3000'
+      - '3002:3000'
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db5432/testDB
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/testDB
     depends_on:
       - db
 
