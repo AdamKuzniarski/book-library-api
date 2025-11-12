@@ -4,7 +4,7 @@ export default function NavBar() {
   return (
     <div>
       <nav>
-        <Link to="/">Books</Link> |<Link to="/user">User</Link>
+        <Link to="/" className="">Books</Link> |<Link to="/user" className="">User</Link>
       </nav>
 
       <Routes>
