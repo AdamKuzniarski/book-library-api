@@ -1,7 +1,39 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-export default function SideBar() {
+type NavItemProps = {
+  to: string;
+  label: string;
+};
+
+function NavItem({ to, label }: NavItemProps) {
   return (
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `
+    flex items-center gap-3
+    px-3 py-2
+    rounded-xl
+    text-sm font-medium
+    transition
+    ${
+      isActive
+        ? "bg-indigo-50 text-indigo-600"
+        : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+    }
+    `
+      }
+    >
+      <span className="h-2 w-2 rounded-full bg-indigo-400">
+        <span>{label}</span>
+      </span>
+    </NavLink>
+  );
+}
+export default function SideBar() {
+  return <p>Adam</p>;
+
+  /*
     <>
       <h1 className="text-4xl py-1.5">Neon Books</h1>
       <header className="sticky rounded-2xl top-0 z-50 w-full border-b border-white/20 bg-gradient-to-t from-sky-500 to-indigo-500">
@@ -34,5 +66,5 @@ export default function SideBar() {
         <Route path="/user" element={<h2></h2>} />
       </Routes>
     </>
-  );
+  ); */
 }

@@ -1,5 +1,5 @@
-import SideBar from "../SideBar";
-import TopBar from "../TopBar";
+import SideBar from "./SideBar";
+import TopBar from "./TopBar";
 import RecommendedSection from "../books/RecommendedSection";
 import CategoriesSection from "../books/CategoriesSection";
 import BookDetailPanel from "../books/BookDetailPanel";
